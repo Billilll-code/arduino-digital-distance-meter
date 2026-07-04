@@ -54,6 +54,32 @@ An Arduino-based distance measurement system using an HC-SR04 ultrasonic sensor 
 
 > Male to female jumper wires can be used to connect the HC-SR04 sensor so that it can be moved around easily.
 
+### Schematic View
+
+![Schematic view of the ultrasonic distance meter circuit](images/schematic.png)
+
+## How It Works
+
+The HC-SR04 ultrasonic sensor measures distance using sound waves:
+
+1. The Arduino sends a 10 microsecond HIGH pulse to the Trigger pin
+> Must be at least 10 microseconds to ensure the sensor detects it
+2. The sensor emits 8 ultrasonic pulses at 40kHz
+3. The pulses travel to the nearest object and bounce back
+4. The Echo pin goes HIGH for a duration proportional to the round-trip time
+
+The distance is calculated with:
+
+```
+distance_cm = (echo_duration_us * 0.000343) / 2
+```
+
+- `0.000343` is the speed of sound in meters per microsecond (343 m/s converted)
+- We divide by 2 because the sound travels to the object AND back
+
+The sensor requires a minimum 60ms gap between measurements to avoid interference from previous pulses.
+> When testing, use a wall or a large object to ensure accurate readings. Avoid using small or irregularly shaped objects, as they may not reflect the ultrasonic waves effectively.
+
 ## Software
 
 ### Dependencies
@@ -74,6 +100,16 @@ An Arduino-based distance measurement system using an HC-SR04 ultrasonic sensor 
 ### Usage
 
 Once uploaded, the LCD displays the measured distance in meters, updating when the pushbutton is pressed. Point the HC-SR04 sensor at an object to see its distance.
+
+## Troubleshooting
+
+| Problem | Possible Cause | Solution |
+| --- | --- | --- |
+| LCD shows nothing | Contrast not adjusted | Turn the potentiometer until text appears |
+| LCD shows boxes only | Code not uploaded or wrong pins | Verify pin assignments in code match wiring |
+| LCD shows garbled text | Potentiometer not adjusted | Turn the potentiometer until text appears clearly - may need to reupload code |
+| Distance always reads 0 | Trig/Echo pins swapped or disconnected | Check wiring matches pin definitions in code |
+| Readings are erratic | Sensor aimed at angled surface or too close | Ensure flat surface, minimum 2cm distance |
 
 ## References
 
