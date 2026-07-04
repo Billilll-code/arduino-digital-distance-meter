@@ -9,7 +9,7 @@ An Arduino-based distance measurement system using an HC-SR04 ultrasonic sensor 
 - Simple, reproducible circuit with common components
 - The output is given in the format X.XXXXeX m to represent the distance in scientific notation, where X.XXXX is the measured distance and eX is the exponent.
 
-## Circuit Diagram
+## Physical Circuit
 
 ![The physical circuit](images/physical-circuit.png)
 
